@@ -11,6 +11,7 @@ import org.green.app.entities.Competence;
 import org.green.app.entities.Equipe;
 import org.green.app.entities.FamilleCompetence;
 import org.green.app.entities.Note;
+import org.green.app.entities.Role;
 import org.green.app.entities.SessionApp;
 import org.green.app.entities.Utilisateur;
 
@@ -103,8 +104,10 @@ public class GappDaoImpl implements IGappDAO {
 	}
 
 	@Override
-	public void attribuerRole(Long idUtilisateur) {
-		
+	public void attribuerRole(Role r,Long idUtilisateur) {
+		Utilisateur u = em.find(Utilisateur.class, idUtilisateur);
+		u.getRoles().add(r);
+		em.persist(r);
 		
 	}
 
@@ -236,13 +239,13 @@ public class GappDaoImpl implements IGappDAO {
 
 	@Override
 	public List<SessionApp> listSassionApp() {
-		Query req=em.createQuery("SELECT sa FROM SessionApp sa");
+		Query req=em.createQuery("select sa from SessionApp sa");
 		return req.getResultList();
 	}
 
 	@Override
-	public SessionApp getSessionApp(Long idSessionApp) {
-		return em.find(SessionApp.class, idSessionApp);
+	public SessionApp getSessionApp(Long idApp) {
+		return em.find(SessionApp.class, idApp);
 	}
 
 	@Override

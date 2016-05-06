@@ -10,12 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 public class Note implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idNote;
+	@NotEmpty
 	private long valeurNote;
 	private String commentaire;
 	private Date dateNote;

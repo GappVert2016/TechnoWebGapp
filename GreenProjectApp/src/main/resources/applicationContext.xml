@@ -40,4 +40,18 @@
 		<property name="dao" ref="dao"></property>
 	
 	</bean>
+	<!-- <s:http>
+		<s:intercept-url pattern="/respoAdmin/**" access="ADMIN_RESPO" ></s:intercept-url>
+		<s:form-login login-page="/login" default-target-url="/respoAdmin/index"
+		authentification-failure-url="/login"></s:form-login>
+		<s:logout logout-success-url="/logout"></s:logout>
+	</s:http>
+	<s:authentification-manager>
+		<s:authentification-provider>
+			<s:password-encoder hash="md5"></s:password-encoder>
+			<s:jdbc-user-service data-source-ref="datasource"
+			users-by-username-query="select nomUtilisateur, password, actived from utilisateur where nomUtilisateur=?"
+			authorities-by-username-query="select u.nomUtilisateur, r.roleName from utilisateur, role r where u.idUtilisateur = r.idUtilisateur and u.nomUtilisateur=? "></s:jdbc-user-service>
+		</s:authentification-provider>
+	</s:authentification-manager> -->
 </beans>

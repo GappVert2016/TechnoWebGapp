@@ -11,14 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class FamilleCompetence implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idFamille;
+	@NotEmpty
 	private String nomFamille;
 	@ManyToOne
-	@JoinColumn(name="idSessionApp")
+	@JoinColumn(name="idApp")
 	private SessionApp sessionApp;
 	@OneToMany(mappedBy="familleCompetence")
 	private Collection<Competence> competences;

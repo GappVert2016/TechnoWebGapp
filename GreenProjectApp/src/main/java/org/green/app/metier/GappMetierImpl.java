@@ -8,6 +8,7 @@ import org.green.app.entities.Competence;
 import org.green.app.entities.Equipe;
 import org.green.app.entities.FamilleCompetence;
 import org.green.app.entities.Note;
+import org.green.app.entities.Role;
 import org.green.app.entities.SessionApp;
 import org.green.app.entities.Utilisateur;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,8 +140,8 @@ public class GappMetierImpl implements IRespoAppMetier {
 	}
 
 	@Override
-	public void attribuerRole(Long idUtilisateur) {
-		
+	public void attribuerRole(Role r, Long idUtilisateur) {
+		dao.attribuerRole(r, idUtilisateur);
 	}
 
 	@Override
@@ -216,8 +217,8 @@ public class GappMetierImpl implements IRespoAppMetier {
 	}
 
 	@Override
-	public SessionApp getSessionApp(Long idSessionApp) {
-		return dao.getSessionApp(idSessionApp);
+	public SessionApp getSessionApp(Long idApp) {
+		return dao.getSessionApp(idApp);
 	}
 
 	@Override

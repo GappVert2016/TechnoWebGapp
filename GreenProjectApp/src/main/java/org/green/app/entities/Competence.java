@@ -11,11 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Competence implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idCompetence;
+	@NotEmpty
 	private String nomCompetence;
 	private String descriptionCompetence;
 	private boolean bloqueCompetence;

@@ -7,39 +7,40 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Utilisateur implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idUtilisateur;
-	private String identifiantLDAP;
-	private String email;
+	@NotEmpty
 	private String nomUtilisateur;
-	private String prenomUtilisateur;
-	private String role;
+	private String password;
+	private boolean actived;
+	@OneToMany(mappedBy="utilisateur")
+	private Collection<Role> roles;
 	@OneToMany(mappedBy="utilisateur")
 	private Collection<SessionApp> sessionApps;
 	@OneToMany(mappedBy="utilisateur")
 	private Collection<AssignationsEquipe> assignEquipes;
 	@OneToMany(mappedBy="utilisateur")
 	private Collection<Note> notes;
-	
-	public Utilisateur(String identifiantLDAP, String email, String nomUtilisateur,
-			String prenomUtilisateur, String role) {
-		super();
-		this.identifiantLDAP = identifiantLDAP;
-		this.email = email;
-		this.nomUtilisateur = nomUtilisateur;
-		this.prenomUtilisateur = prenomUtilisateur;
-		this.role = role;
-		
-	}
 
+	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Utilisateur(String nomUtilisateur, String password, boolean actived) {
+		super();
+		this.nomUtilisateur = nomUtilisateur;
+		this.password = password;
+		this.actived = actived;
 	}
 
 	public long getIdUtilisateur() {
@@ -50,22 +51,6 @@ public class Utilisateur implements Serializable{
 		this.idUtilisateur = idUtilisateur;
 	}
 
-	public String getIdentifiantLDAP() {
-		return identifiantLDAP;
-	}
-
-	public void setIdentifiantLDAP(String identifiantLDAP) {
-		this.identifiantLDAP = identifiantLDAP;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getNomUtilisateur() {
 		return nomUtilisateur;
 	}
@@ -74,20 +59,28 @@ public class Utilisateur implements Serializable{
 		this.nomUtilisateur = nomUtilisateur;
 	}
 
-	public String getPrenomUtilisateur() {
-		return prenomUtilisateur;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPrenomUtilisateur(String prenomUtilisateur) {
-		this.prenomUtilisateur = prenomUtilisateur;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
+	public boolean isActived() {
+		return actived;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setActived(boolean actived) {
+		this.actived = actived;
+	}
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
 	}
 
 	public Collection<SessionApp> getSessionApps() {

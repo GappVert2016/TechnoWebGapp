@@ -6,6 +6,7 @@ import org.green.app.entities.Competence;
 import org.green.app.entities.Equipe;
 import org.green.app.entities.FamilleCompetence;
 import org.green.app.entities.Note;
+import org.green.app.entities.Role;
 import org.green.app.entities.SessionApp;
 import org.green.app.entities.Utilisateur;
 
@@ -27,7 +28,7 @@ public interface IGappDAO {
 	public void modifierUtilisateur(Utilisateur u); 
 	
 	
-	public void attribuerRole(Long idUtilisateur);
+	public void attribuerRole(Role r, Long idUtilisateur);
 	
 	public Long ajouterEquipe(Equipe e);
 	public List<Equipe> listEquipe();
@@ -55,7 +56,7 @@ public interface IGappDAO {
 	
 	public Long ajouterSessionApp(SessionApp sa);
 	public List<SessionApp> listSassionApp();
-	public SessionApp getSessionApp(Long idSessionApp);
+	public SessionApp getSessionApp(Long idApp);
 	public void supprimerSessionApp(Long idSessionA);
 	public void modifierSessionApp(SessionApp sa);
 		

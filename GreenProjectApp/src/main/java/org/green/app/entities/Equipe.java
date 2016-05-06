@@ -11,15 +11,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Equipe implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idEquipe;
+	@NotEmpty
 	private String nomEquipe;
 	@ManyToOne
-	@JoinColumn(name="idSessionApp")
-	private SessionApp sessionAppEquipe;
+	@JoinColumn(name="idApp")
+	private SessionApp sessionApp;
 	@OneToMany(mappedBy="equipe")
 	private Collection<AssignationsEquipe> assignEquipes;
 	@OneToMany(mappedBy="equipe")
@@ -31,10 +34,10 @@ public class Equipe implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Equipe(String nomEquipe, SessionApp sessionAppEquipe) {
+	public Equipe(String nomEquipe, SessionApp sessionApp) {
 		super();
 		this.nomEquipe = nomEquipe;
-		this.sessionAppEquipe = sessionAppEquipe;
+		this.sessionApp = sessionApp;
 	}
 	public long getIdEquipe() {
 		return idEquipe;
@@ -48,11 +51,11 @@ public class Equipe implements Serializable{
 	public void setNomEquipe(String nomEquipe) {
 		this.nomEquipe = nomEquipe;
 	}
-	public SessionApp getSessionAppEquipe() {
-		return sessionAppEquipe;
+	public SessionApp getSessionApp() {
+		return sessionApp;
 	}
-	public void setSessionAppEquipe(SessionApp sessionAppEquipe) {
-		this.sessionAppEquipe = sessionAppEquipe;
+	public void setSessionApp(SessionApp sessionApp) {
+		this.sessionApp = sessionApp;
 	}
 	public Collection<AssignationsEquipe> getAssignEquipes() {
 		return assignEquipes;

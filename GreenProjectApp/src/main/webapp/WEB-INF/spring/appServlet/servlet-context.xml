@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="org.green.app" />
 	
+	<context:component-scan base-package="org.green.app.controllers" />
+	
 	
 	
 </beans:beans>

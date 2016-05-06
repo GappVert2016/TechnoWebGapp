@@ -21,7 +21,7 @@ public class SessionApp implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idUtilisateur")
 	private Utilisateur utilisateur;
-	@OneToMany(mappedBy="sessionAppEquipe")
+	@OneToMany(mappedBy="sessionApp")
 	private Collection<Equipe> equipes;
 	@OneToMany(mappedBy="sessionApp")
 	private Collection<FamilleCompetence> famicomps;

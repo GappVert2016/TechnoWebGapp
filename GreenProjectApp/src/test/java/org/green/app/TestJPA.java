@@ -27,8 +27,8 @@ public class TestJPA {
 			IRespoAppMetier metier= 
 					(IRespoAppMetier) context.getBean("metier");
 			List<Utilisateur> sesap1=metier.listUtilisateur();
-			metier.ajouterUtilisateur(new Utilisateur("tata@gmail.com", "tataLDAP" , "tataNom", "tataPrenom", "etudiantISEP"));
-			metier.ajouterUtilisateur(new Utilisateur("toto@gmail.com", "totoLDAP" , "totoNom", "totoPrenom", "etudiantISEP"));
+			metier.ajouterUtilisateur(new Utilisateur("tata", "tataLDAP" , true));
+			metier.ajouterUtilisateur(new Utilisateur("toto", "totoLDAP" , true));
 			List<Utilisateur> sesap2=metier.listUtilisateur();
 			assertTrue(sesap1.size()+2==sesap2.size());
 		}
@@ -44,7 +44,7 @@ public class TestJPA {
 			IRespoAppMetier metier= 
 					(IRespoAppMetier) context.getBean("metier");
 			List<SessionApp> sep1=metier.listSassionApp();
-			Utilisateur u = new Utilisateur("toto@gmail.com", "totoLDAP" , "totoNom", "totoPrenom", "etudiantISEP");
+			Utilisateur u = new Utilisateur("okongo", "password" , true);
 			metier.ajouterUtilisateur(u);
 			metier.ajouterSessionApp(new SessionApp("APPInfosemestre1", "Description app info 2016", u));
 			metier.ajouterSessionApp(new SessionApp("AppElectrosem2", "Description app electro 2016", u));
@@ -62,7 +62,7 @@ public class TestJPA {
 			IRespoAppMetier metier= 
 					(IRespoAppMetier) context.getBean("metier");
 			List<Equipe> equ1=metier.listEquipe();
-			Utilisateur u = new Utilisateur("tutu@gmail.com", "totuLDAP" , "tutuNom", "tetePrenom", "etudiantesISEP");
+			Utilisateur u = new Utilisateur("tatout", "totuLDAP" , true);
 			metier.ajouterUtilisateur(u);
 			
 			metier.ajouterSessionApp(new SessionApp("APPInfosemestre1", "Description app info 2016", u));
@@ -85,7 +85,7 @@ public class TestJPA {
 					(IRespoAppMetier) context.getBean("metier");
 			List<AssignationsEquipe> ae1=metier.listAssignEquipe();
 			
-			Utilisateur u = new Utilisateur("tutu@gmail.com", "totuLDAP" , "tutuNom", "tetePrenom", "etudiantesISEP");
+			Utilisateur u = new Utilisateur("tutu", "totuLDAP" , true);
 			metier.ajouterUtilisateur(u);
 			
 			SessionApp sa = new SessionApp("AppElectrosem2", "Description app electro 2016", u);
