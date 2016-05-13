@@ -26,7 +26,7 @@ public class RespoAppController implements HandlerExceptionResolver{
 	private IRespoAppMetier metier;
 	@RequestMapping(value="/index")
 	public String index(Model model){
-		model.addAttribute("famillecompetence", new FamilleCompetence());
+		model.addAttribute("famillecomp", new FamilleCompetence());
 		model.addAttribute("famillecompetences", metier.listFamComp());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		return "famillecompetences";
@@ -73,4 +73,57 @@ public class RespoAppController implements HandlerExceptionResolver{
 		return "famillecompetences";
 		
 	}
+	
+	@RequestMapping(value="/listUtilisateurs")
+	public String listUtilisateurs(Model model){
+	model.addAttribute("utilisateurs", metier.listUtilisateur());
+	model.addAttribute("listEquipes" , metier.listEquipe());
+	model.addAttribute("sessionApps", metier.listSassionApp());
+
+	model.addAttribute("assignation", metier.listAssignEquipe());
+
+	model.addAttribute("sessionApps", metier.listSassionApp());
+
+	for(int i=1; i<3;i++){
+	model.addAttribute("groupe"+i, metier.getEquipe((long) i));
+	model.addAttribute("utilisateurGroupe"+i, metier.listUtilisateurParGroupe((long) i));
+
+	}	
+
+	return "ListUtilisateurs";	
+	}
+	
+	@RequestMapping(value="/listEquipes")
+	public String listEquipes(Model model){
+	model.addAttribute("listEquipes" , metier.listEquipe());
+	return "ListGroupe";	
+	}
+	
+	@RequestMapping(value="/listCompetences")
+	public String listCompetences(Model model){
+	model.addAttribute("competences" , metier.listComptence());
+	model.addAttribute("familleCompetences" , metier.listFamComp());
+	model.addAttribute("sessionApps", metier.listSassionApp());
+
+	for(int i=1; i<3;i++){
+	model.addAttribute("famille"+i, metier.getFamComp((long) i));
+	model.addAttribute("familleC"+i, metier.listCompetenceParFamComp((long) i));
+	}
+
+	return "ListCompetences";
+
+	}
+	
+	@RequestMapping(value="/suppCom")
+	public String suppC(Long idCompetence, Model model){
+	metier.supprimerComptence(idCompetence);
+
+	for(int i=1; i<3;i++){
+	model.addAttribute("famille"+i, metier.getFamComp((long) i));
+	model.addAttribute("familleC"+i, metier.listCompetenceParFamComp((long) i));
+	}
+	return "ListCompetences";
+	}
+	
+	
 }

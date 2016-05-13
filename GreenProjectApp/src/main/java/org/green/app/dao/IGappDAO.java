@@ -26,6 +26,7 @@ public interface IGappDAO {
 	public Utilisateur getUtilisateur(Long idUtilisateur);
 	public void supprimerUtilisateur(Long idUtilisa);
 	public void modifierUtilisateur(Utilisateur u); 
+	public List<Utilisateur> listUtilisateurParGroupe(Long identifiant);
 	
 	
 	public void attribuerRole(Role r, Long idUtilisateur);

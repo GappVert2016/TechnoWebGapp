@@ -232,5 +232,9 @@ public class GappMetierImpl implements IRespoAppMetier {
 		dao.modifierSessionApp(sa);
 		
 	}
+    @Override
+	public List<Utilisateur> listUtilisateurParGroupe(Long id) {
+	return dao.listUtilisateurParGroupe(id);
+	}
 
 }

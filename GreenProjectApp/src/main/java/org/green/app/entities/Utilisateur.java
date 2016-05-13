@@ -17,8 +17,10 @@ public class Utilisateur implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idUtilisateur;
+	private String email;
 	@NotEmpty
-	private String nomUtilisateur;
+	private String nomUtilisateur;	
+	private String prenomUtilisateur;
 	private String password;
 	private boolean actived;
 	@OneToMany(mappedBy="utilisateur")
@@ -36,11 +38,15 @@ public class Utilisateur implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Utilisateur(String nomUtilisateur, String password, boolean actived) {
+	public Utilisateur(String email, String nomUtilisateur,String prenomUtilisateur, String password, boolean actived) {
 		super();
+		this.email = email;
 		this.nomUtilisateur = nomUtilisateur;
+		this.prenomUtilisateur = prenomUtilisateur;
+		
 		this.password = password;
 		this.actived = actived;
+		
 	}
 
 	public long getIdUtilisateur() {
@@ -106,6 +112,22 @@ public class Utilisateur implements Serializable{
 	public void setNotes(Collection<Note> notes) {
 		this.notes = notes;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPrenomUtilisateur() {
+		return prenomUtilisateur;
+	}
+
+	public void setPrenomUtilisateur(String prenomUtilisateur) {
+		this.prenomUtilisateur = prenomUtilisateur;
+	}
 	
-	
+		
 }

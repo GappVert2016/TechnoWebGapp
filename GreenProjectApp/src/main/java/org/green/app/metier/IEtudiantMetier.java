@@ -17,6 +17,7 @@ public interface IEtudiantMetier {
 	
 	public Utilisateur getUtilisateur(Long idUtilisateur);
 	
+	
 	public List<FamilleCompetence> listFamComp();
 	public FamilleCompetence getFamComp(Long idFamComp);
 	

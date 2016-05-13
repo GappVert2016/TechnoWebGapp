@@ -42,7 +42,7 @@ public class GappDaoImpl implements IGappDAO {
 
 	@Override
 	public List<Competence> listCompetenceParFamComp(Long idFamComp) {
-		Query req = em.createQuery("select c from Competence c where c.fammillecompetence.idFamille=:x");
+		Query req = em.createQuery("select c from Competence c where c.fammilleCompetence.idFamille=:x");
 		req.setParameter("x", idFamComp);
 		return req.getResultList();
 	}
@@ -260,5 +260,11 @@ public class GappDaoImpl implements IGappDAO {
 		em.merge(sa);
 		
 	}
-
+	
+	@Override
+	public List<Utilisateur> listUtilisateurParGroupe(Long identifiant) {
+	Query req = em.createQuery("select ae from AssignationsEquipe ae where ae.equipe.idEquipe=:x");
+	req.setParameter("x", identifiant);
+	return req.getResultList();
+	}
 }

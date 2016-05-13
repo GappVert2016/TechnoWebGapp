@@ -19,6 +19,8 @@ public interface IRespoAppMetier extends ITuteurMetier {
 	public Long ajouterUtilisateur(Utilisateur u);
 	public void supprimerUtilisateur(Long idUtilisa);
 	public void modifierUtilisateur(Utilisateur u);
+
+	public List<Utilisateur> listUtilisateurParGroupe(Long identifiant);
 	
 	public void attribuerRole(Role r, Long idUtilisateur);
 	
