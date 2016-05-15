@@ -18,7 +18,6 @@ public class FamilleCompetence implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idFamille;
-	@NotEmpty
 	private String nomFamille;
 	@ManyToOne
 	@JoinColumn(name="idApp")
@@ -31,9 +30,10 @@ public class FamilleCompetence implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FamilleCompetence(String nomFamille) {
+	public FamilleCompetence(String nomFamille, SessionApp sessionApp) {
 		super();
 		this.nomFamille = nomFamille;
+		this.sessionApp = sessionApp;
 	}
 	public long getIdFamille() {
 		return idFamille;
