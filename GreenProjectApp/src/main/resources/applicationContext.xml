@@ -14,6 +14,7 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/db_gapp"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value=""></property>
+		
 	</bean>	
 	
 	<bean id="persistenceUnitManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
@@ -44,7 +45,15 @@
 	</bean>
 	<s:http>
 		<s:intercept-url pattern="/respoApp/**" access="ROLE_ADMIN_RESPO" ></s:intercept-url>
+		<s:intercept-url pattern="/tutorApp/**" access="ROLE_ADMIN_TUTOR" ></s:intercept-url>
+		<s:intercept-url pattern="/studentApp/**" access="ROLE_ADMIN_STUDENT" ></s:intercept-url>
 		<s:form-login login-page="/login" default-target-url="/respoApp/index"
+		authentication-failure-url="/login"></s:form-login>
+		
+		<s:form-login login-page="/login" default-target-url="/tutorApp/index"
+		authentication-failure-url="/login"></s:form-login>
+		
+		<s:form-login login-page="/login" default-target-url="/studentApp/index"
 		authentication-failure-url="/login"></s:form-login>
 		<s:logout logout-success-url="/logout"></s:logout>
 	</s:http>
