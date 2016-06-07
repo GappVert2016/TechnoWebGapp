@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Competence implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long idCompetence;
+	private Long idCompetence;
 	@NotEmpty
 	private String nomCompetence;
 	private String descriptionCompetence;
@@ -26,7 +27,7 @@ public class Competence implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idFamille")
 	private FamilleCompetence familleCompetence;
-	@OneToMany(mappedBy="comptence")
+	@OneToMany(mappedBy="comptence", fetch=FetchType.LAZY)
 	private Collection<Note> notes;
 	
 	public Competence() {
@@ -34,17 +35,25 @@ public class Competence implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	public Competence(String nomCompetence, String descriptionCompetence, boolean bloqueCompetence,
-			long coefficient) {
+			long coefficient, FamilleCompetence familleCompetence) {
 		super();
 		this.nomCompetence = nomCompetence;
 		this.descriptionCompetence = descriptionCompetence;
 		this.bloqueCompetence = bloqueCompetence;
 		this.coefficient = coefficient;
+		this.familleCompetence = familleCompetence;
 	}
-	public long getIdCompetence() {
+	
+	public Competence(String nomCompetence, FamilleCompetence familleCompetence) {
+		super();
+		this.nomCompetence = nomCompetence;
+		this.familleCompetence = familleCompetence;
+	}
+	
+	public Long getIdCompetence() {
 		return idCompetence;
 	}
-	public void setIdCompetence(long idCompetence) {
+	public void setIdCompetence(Long idCompetence) {
 		this.idCompetence = idCompetence;
 	}
 	public String getNomCompetence() {

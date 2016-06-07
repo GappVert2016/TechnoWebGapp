@@ -11,7 +11,7 @@ public interface ITuteurMetier extends IEtudiantMetier {
 	public List<Utilisateur> utilisateurParMotCle(String mc);	
 	public Utilisateur getUtilisateur(Long idUtilisateur);
 	
-	public Long ajouterNote(Note n);
+	public Long ajouterNote(Note n, Long idCompetence, Long idEquipe, Long idUtilisateur);
 	public void supprimerNote(Long idNt);
 	public void modifierNote(Note n);
 

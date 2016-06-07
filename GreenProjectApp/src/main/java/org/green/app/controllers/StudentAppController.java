@@ -14,9 +14,9 @@ public class StudentAppController {
 	private IEtudiantMetier metier;
 	@RequestMapping(value="/index")
 	public String index(Model model){
-		model.addAttribute("famillecompetences", metier.listNote());
+		model.addAttribute("notes", metier.listNote());
 
-		return "home";
+		return "gestionStudent";
 		
 	}
 }

@@ -16,7 +16,7 @@ public class TutorAppController {
 		@RequestMapping(value="/index")
 		public String index(Model model){
 			model.addAttribute("familleForm", new Utilisateur());
-			model.addAttribute("famillecompetences", metier.listUtilisateur());
+			model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 
 			return "famillecompetences";
 			
