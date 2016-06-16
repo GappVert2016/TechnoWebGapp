@@ -20,13 +20,13 @@ public interface IRespoAppMetier extends ITuteurMetier {
 	public void supprimerUtilisateur(Long idUtilisa);
 	public void modifierUtilisateur(Utilisateur u);
 
-	public List<Utilisateur> listUtilisateurParGroupe(Long identifiant);
+	// public List<Utilisateur> listUtilisateurParGroupe(Long identifiant);
 	
 	public void attribuerRole(Role r, Long idUtilisateur);
 	
 	public Long ajouterEquipe(Equipe e, Long idApp);
-	public List<Equipe> listEquipe();
-	public Equipe getEquipe(Long idEquipe);
+	//public List<Equipe> listEquipe();
+	//public Equipe getEquipe(Long idEquipe);
 	public void supprimerEquipe(Long idEquip);
 	public void modifierEquipe(Equipe e);
 	
@@ -43,5 +43,6 @@ public interface IRespoAppMetier extends ITuteurMetier {
 	public SessionApp getSessionApp(Long idApp);
 	public void supprimerSessionApp(Long idSessionA);
 	public void modifierSessionApp(SessionApp sa);
+	public List<SessionApp> listSassionApps();
 
 }

@@ -22,6 +22,10 @@ public interface IEtudiantMetier {
 	public FamilleCompetence getFamComp(Long idFamComp);
 	
 	public List<Note> listNote();
+	
+	/*LISTE DES NOTES PAR UTILISATEUR DONT ON CONNAIT L'ID**/	
+	public List<Note> listNotesParUtilisateur(Long id);
+	
 	public Note getNote(Long idNote);
 	
 	public List<AssignationsEquipe> listAssignEquipe();

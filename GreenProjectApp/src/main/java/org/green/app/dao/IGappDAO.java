@@ -15,7 +15,18 @@ public interface IGappDAO {
 	public Long ajouterCompetence(Competence c, Long idFamComp);
 	public List<Competence> listComptence();
 	public List<Competence> listCompetenceParMotCle(String mc);
+
+	/***LISTER LES COMPETENCES PAR FAMILLE COMPETENCE****/
 	public List<Competence> listCompetenceParFamComp(Long idFamComp);	
+
+
+	/***LISTER LES COMPETENCES PAR FAMILLE COMPETENCE ET PAR ETUDIANT****/
+	public List<Competence> listCompetenceParFamCompParEtudiant(Long idFamComp, Long id);	
+
+	/**LISTE DES NOTES PAR UTILISATEUR DONT ON CONNAIT L'IDENTIFIANT ET PAR FAMILLE COMPETENCE**/
+	public List<Note> listNotesParUtilisateurParFamComp(Long id,Long idFam);
+	
+	
 	public Competence getCompetence(Long idCompetence);
 	public void supprimerComptence(Long idComp);
 	public void modifierCompetence(Competence c);
@@ -33,9 +44,18 @@ public interface IGappDAO {
 	
 	public Long ajouterEquipe(Equipe e, Long idApp);
 	public List<Equipe> listEquipe();
+	
+
+
+/***NOMBRE EQUIPE**/
+public int nombreEquipe();
+/***NOMBRE FAMILLE COMPETENCE**/
+public int nombreFamilleComp();
+
 	public Equipe getEquipe(Long idEquipe);
 	public void supprimerEquipe(Long idEquip);
 	public void modifierEquipe(Equipe e);
+	public List<Equipe> listEquipes();
 	
 	public Long ajouterFamComp(FamilleCompetence fc, Long idApp);
 	public List<FamilleCompetence> listFamComp();
@@ -45,6 +65,11 @@ public interface IGappDAO {
 	
 	public Long ajouterNote(Note n, Long idCompetence, Long idEquipe, Long idUtilisateur);
 	public List<Note> listNote();
+	
+	   /*LISTE DES NOTES PAR UTILISATEUR DONT ON CONNAIT L'ID**/	
+	public List<Note> listNotesParUtilisateur(Long id);
+
+	
 	public Note getNote(Long idNote);
 	public void supprimerNote(Long idNt);
 	public void modifierNote(Note n);
@@ -60,5 +85,6 @@ public interface IGappDAO {
 	public SessionApp getSessionApp(Long idApp);
 	public void supprimerSessionApp(Long idSessionA);
 	public void modifierSessionApp(SessionApp sa);
+	public List<SessionApp> listSassionApps();
 		
 }

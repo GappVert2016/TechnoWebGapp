@@ -98,7 +98,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 	@RequestMapping(value="/indexEquipe")
 	public String gestionRespoEquipe(Model model){
 		model.addAttribute("equipeForm", new Equipe());
-		model.addAttribute("listEquipes", metier.listEquipe());
+		model.addAttribute("listEquipes", metier.listEquipes());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		return "gestionRespoEquipe";
 	}
@@ -117,7 +117,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 			metier.modifierEquipe(e);
 		}
 		model.addAttribute("equipeForm", new Equipe());
-		model.addAttribute("listEquipes", metier.listEquipe());
+		model.addAttribute("listEquipes", metier.listEquipes());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		return "gestionRespoEquipe";
 		
@@ -127,7 +127,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 	public String editEquipe(Long idEquipe, Model model){
 		Equipe e = metier.getEquipe(idEquipe);
 		model.addAttribute("equipeForm", e);
-		model.addAttribute("listEquipes", metier.listEquipe());
+		model.addAttribute("listEquipes", metier.listEquipes());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		return "gestionRespoEquipe";		
 	}
@@ -136,7 +136,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 	public String suppEquipe(Long idEquipe, Model model){
 		metier.supprimerEquipe(idEquipe);
 		model.addAttribute("equipeForm", new Equipe());
-		model.addAttribute("listEquipes", metier.listEquipe());
+		model.addAttribute("listEquipes", metier.listEquipes());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		return "gestionRespoEquipe";		
 	}
@@ -149,7 +149,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 		model.addAttribute("assignEquipeForm", new AssignationsEquipe());
 		model.addAttribute("listAssigns", metier.listAssignEquipe());	
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
-		model.addAttribute("listEquipes", metier.listEquipe());
+		model.addAttribute("listEquipes", metier.listEquipes());
 		return "gestionRespoAssign";
 	}
 	
@@ -168,7 +168,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 		model.addAttribute("assignEquipeForm", new AssignationsEquipe());
 		model.addAttribute("listAssigns", metier.listAssignEquipe());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
-		model.addAttribute("listEquipes", metier.listEquipe());
+		model.addAttribute("listEquipes", metier.listEquipes());
 		return "gestionRespoAssign";
 		
 	}
@@ -179,7 +179,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 		model.addAttribute("assignEquipeForm", ae);
 		model.addAttribute("listAssigns", metier.listAssignEquipe());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
-		model.addAttribute("listEquipes", metier.listEquipe());		
+		model.addAttribute("listEquipes", metier.listEquipes());		
 		return "gestionRespoAssign";		
 	}
 	
@@ -189,7 +189,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 		model.addAttribute("assignEquipeForm", new AssignationsEquipe());
 		model.addAttribute("listAssigns", metier.listAssignEquipe());		
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
-		model.addAttribute("listEquipes", metier.listEquipe());
+		model.addAttribute("listEquipes", metier.listEquipes());
 		return "gestionRespoAssign";		
 	}
 	
@@ -200,7 +200,7 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 		/*formulaire famillleCompentence */
 		model.addAttribute("familleForm", new FamilleCompetence());
 		model.addAttribute("listFamComps", metier.listFamComp());
-		model.addAttribute("sessionapps", metier.listSassionApp());
+		model.addAttribute("sessionapps", metier.listSassionApps());
 		
 		/*formulaire session App*/
 		/*model.addAttribute("sessionAppForm", new SessionApp());
@@ -238,8 +238,8 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 		FamilleCompetence fc = metier.getFamComp(idFamille);
 		model.addAttribute("familleForm", fc);
 		model.addAttribute("listFamComps", metier.listFamComp());
-		model.addAttribute("sessionapps", metier.listSassionApp());
-		return "gestionRespoGrille";		
+		model.addAttribute("sessionapps", metier.listSassionApps());
+		return "gestionRespoFamComp";		
 	}
 	
 	@RequestMapping(value="/suppFamille")
