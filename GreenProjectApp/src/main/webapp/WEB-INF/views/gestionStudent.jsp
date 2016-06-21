@@ -1,38 +1,75 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
+
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="scripts/javascript-traitement.js"></script>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Grille notes</title>
 </head>
+
 <body>
-<div>
-<table>
-<tr>
+	<%@ include file="headerStudent.jsp"%>
 
-<th>nomUtilisateur</th><th>note</th><th>commentaire</th> <th>famillescompetences </th> 
-<th>compentences</th>
-</tr>
-<c:forEach items="${notes}" var="note">
-<tr>
-   <td>${note.utilisateur.nomUtilisateur}</td>
-<td>${note.valeurNote}</td>
-<td>${note.commentaire }</td>
-<td>${note.comptence.familleCompetence.nomFamille }</td>
-<td>${note.comptence.nomCompetence }</td>
+	<h2 style="text-align: center; margin-bottom: 30px;">Fiche de Note
+		de ${nom}</h2>
 
+	<div class="container">
 
+		<c:forEach items="${listCompetenceParFam}" var="famComp">
+			<div class="">
+				<h4 style="color: #337ab7; font-size: 2em;"
+					id="${famComp[0].comptence.familleCompetence.nomFamille.replaceAll(' ' , '') }">${famComp[0].comptence.familleCompetence.nomFamille}</h4>
 
-<td>${sas.prenomUtilisateur }</td>
-</tr>
-
-</c:forEach>
-</table>
-</div>
-
+				<table class="table" style="display: none;">
+					<tr>
+						<th>COMPETENCE</th>
+						<th>DESCRIPTION</th>
+						<th>NOTE</th>
+						<th>COMMENTAIRE</th>
+					</tr>
+					<c:forEach items="${famComp}" var="competence">
+						<tr
+							class="${competence.comptence.familleCompetence.nomFamille.replaceAll(' ' , '') }">
+							<td style="">${competence.comptence.nomCompetence }</td>
+							<td style="">${competence.comptence.descriptionCompetence }</td>
+							<td style="">${competence.valeurNote }</td>
+							<td style="">${competence.commentaire }</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</c:forEach>
+	</div>
 </body>
+
+<%@ include file="footer.jsp"%>
 </html>
+
+
+<script>
+	$(document).ready(function() {
+		$("h4").click(function() {
+			$(this).next("table").toggle();
+		});
+	});
+</script>
+<style>
+.container {
+	margin: 0 10px;
+}
+
+.competence {
+	margin-bottom: 30px;
+}
+</style>

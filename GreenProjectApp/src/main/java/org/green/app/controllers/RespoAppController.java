@@ -26,92 +26,87 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value="/respoApp")
-public class RespoAppController /*implements HandlerExceptionResolver*/{
+@RequestMapping(value = "/respoApp")
+public class RespoAppController /* implements HandlerExceptionResolver */ {
 	@Autowired
 	private IRespoAppMetier metier;
-	@RequestMapping(value="/index")
-	public String index(Model model){
+
+	@RequestMapping(value = "/index")
+	public String index(Model model) {
 		return "gestionRespo";
-		
+
 	}
-	
-	
-	
-	@RequestMapping(value="/indexUtilisateur")
-	public String gestionRespoUtilisateur(Model model){
+
+	@RequestMapping(value = "/indexUtilisateur")
+	public String gestionRespoUtilisateur(Model model) {
 		model.addAttribute("utilisateurForm", new Utilisateur());
-		model.addAttribute("listUtilisateurs", metier.listUtilisateur());	
+		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 		return "gestionRespoUtilisateurs";
 	}
-	
-	
-	@RequestMapping(value="/saveUtilisateur", method=RequestMethod.POST) 
+
+	@RequestMapping(value = "/saveUtilisateur", method = RequestMethod.POST)
 	public String saveUtilisateur(@Valid Utilisateur u, BindingResult bindingResult, Model model) throws IOException {
-		if(bindingResult.hasErrors()){
+		if (bindingResult.hasErrors()) {
 			model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 			return "gestionRespoUtilisateurs";
 		}
-		if(u.getIdUtilisateur() == null){
-			metier.ajouterUtilisateur(u); 
+		if (u.getIdUtilisateur() == null) {
+			metier.ajouterUtilisateur(u);
 			System.out.println("saveUtilisateur u : " + u.getIdUtilisateur());
-			
-		}
-		else {
+
+		} else {
 			metier.modifierUtilisateur(u);
 			System.out.println("saveUtilisateur u1 : " + u.getNomUtilisateur());
-			
+
 		}
-		System.out.println("saveUtilisateur u1 : " + u.getNomUtilisateur());		
+		System.out.println("saveUtilisateur u1 : " + u.getNomUtilisateur());
 		model.addAttribute("utilisateurForm", new Utilisateur());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
-		//model.addAttribute("sessionapps", metier.listSassionApp());
+		// model.addAttribute("sessionapps", metier.listSassionApp());
 		return "gestionRespoUtilisateurs";
-		
+
 	}
-	
-	/*public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object arg2,
-			Exception ex) {
-		ModelAndView mv=new ModelAndView();
-		mv.addObject("exception", ex.getMessage());
-		mv.setViewName("listUtilisateurs");
-		return mv;
-	}*/
-	
-	@RequestMapping(value="/editUtilisateur")
-	public String editUtilisateur(Long idUtilisateur, Model model){
+
+	/*
+	 * public ModelAndView resolveException(HttpServletRequest request,
+	 * HttpServletResponse response, Object arg2, Exception ex) { ModelAndView
+	 * mv=new ModelAndView(); mv.addObject("exception", ex.getMessage());
+	 * mv.setViewName("listUtilisateurs"); return mv; }
+	 */
+
+	@RequestMapping(value = "/editUtilisateur")
+	public String editUtilisateur(Long idUtilisateur, Model model) {
 		Utilisateur u = metier.getUtilisateur(idUtilisateur);
 		model.addAttribute("utilisateurForm", u);
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
-		return "gestionRespoUtilisateurs";		
+		return "gestionRespoUtilisateurs";
 	}
-	@RequestMapping(value="/suppUtilisateur")
-	public String suppUtilisateur(Long idUtilisateur, Model model){
+
+	@RequestMapping(value = "/suppUtilisateur")
+	public String suppUtilisateur(Long idUtilisateur, Model model) {
 		metier.supprimerUtilisateur(idUtilisateur);
 		model.addAttribute("utilisateurForm", new Utilisateur());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
-		return "gestionRespoUtilisateurs";		
+		return "gestionRespoUtilisateurs";
 	}
-		
-	
-	/* Gestion des équipes*/
-	@RequestMapping(value="/indexEquipe")
-	public String gestionRespoEquipe(Model model){
+
+	/* Gestion des équipes */
+	@RequestMapping(value = "/indexEquipe")
+	public String gestionRespoEquipe(Model model) {
 		model.addAttribute("equipeForm", new Equipe());
 		model.addAttribute("listEquipes", metier.listEquipes());
-		model.addAttribute("sessionapps", metier.listSassionApp());
+		model.addAttribute("sessionapps", metier.listSassionApps());
 		return "gestionRespoEquipe";
 	}
-	
-	@RequestMapping(value="/saveEquipe", method=RequestMethod.POST) 
-	public String saveEquipe(@Valid Equipe e, /*BindingResult bindingResult,*/ Model model) /*throws IOException*/{
-		/*if(bindingResult.hasErrors()){
-			model.addAttribute("sessionapps",metier.listSassionApp());
-			model.addAttribute("famillecompetences",metier.listFamComp());
-			return "famillecompetences";
-		}*/
+
+	@RequestMapping(value = "/saveEquipe", method = RequestMethod.POST)
+	public String saveEquipe(@Valid Equipe e, /* BindingResult bindingResult, */ Model model) /*
+																								 * throws
+																								 * IOException
+																								 */ {
+		
 		System.out.println("saveEquipe u : " + e.getNomEquipe());
-		if(e.getIdEquipe()==null)
+		if (e.getIdEquipe() == null)
 			metier.ajouterEquipe(e, e.getSessionApp().getIdApp());
 		else {
 			metier.modifierEquipe(e);
@@ -120,231 +115,250 @@ public class RespoAppController /*implements HandlerExceptionResolver*/{
 		model.addAttribute("listEquipes", metier.listEquipes());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		return "gestionRespoEquipe";
-		
+
 	}
-	
-	@RequestMapping(value="/editEquipe")
-	public String editEquipe(Long idEquipe, Model model){
+
+	@RequestMapping(value = "/editEquipe")
+	public String editEquipe(Long idEquipe, Model model) {
 		Equipe e = metier.getEquipe(idEquipe);
 		model.addAttribute("equipeForm", e);
 		model.addAttribute("listEquipes", metier.listEquipes());
 		model.addAttribute("sessionapps", metier.listSassionApp());
-		return "gestionRespoEquipe";		
+		return "gestionRespoEquipe";
 	}
-	
-	@RequestMapping(value="/suppEquipe")
-	public String suppEquipe(Long idEquipe, Model model){
+
+	@RequestMapping(value = "/suppEquipe")
+	public String suppEquipe(Long idEquipe, Model model) {
 		metier.supprimerEquipe(idEquipe);
 		model.addAttribute("equipeForm", new Equipe());
 		model.addAttribute("listEquipes", metier.listEquipes());
 		model.addAttribute("sessionapps", metier.listSassionApp());
-		return "gestionRespoEquipe";		
+		return "gestionRespoEquipe";
 	}
-	
-	
-	
-	/* Gestion des assignations*/
-	@RequestMapping(value="/indexAssign")
-	public String gestionRespoAssignEquipe(Model model){
+
+	/* Gestion des assignations */
+	@RequestMapping(value = "/indexAssign")
+	public String gestionRespoAssignEquipe(Model model) {
 		model.addAttribute("assignEquipeForm", new AssignationsEquipe());
-		model.addAttribute("listAssigns", metier.listAssignEquipe());	
-		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
+		model.addAttribute("listAssigns", metier.listAssignEquipe());
+		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 		model.addAttribute("listEquipes", metier.listEquipes());
 		return "gestionRespoAssign";
 	}
-	
-	@RequestMapping(value="/saveAssign", method=RequestMethod.POST) 
-	public String saveAssign(@Valid AssignationsEquipe ae, /*BindingResult bindingResult,*/ Model model) /*throws IOException*/{
-		/*if(bindingResult.hasErrors()){
-			model.addAttribute("sessionapps",metier.listSassionApp());
-			model.addAttribute("famillecompetences",metier.listFamComp());
-			return "famillecompetences";
-		}*/
-		if(ae.getIdAssignationsEquipe()==null)
+
+	@RequestMapping(value = "/saveAssign", method = RequestMethod.POST)
+	public String saveAssign(@Valid AssignationsEquipe ae,
+			/* BindingResult bindingResult, */ Model model) /*
+															 * throws
+															 * IOException
+															 */ {
+		/*
+		 * if(bindingResult.hasErrors()){
+		 * model.addAttribute("sessionapps",metier.listSassionApp());
+		 * model.addAttribute("famillecompetences",metier.listFamComp()); return
+		 * "famillecompetences"; }
+		 */
+		if (ae.getIdAssignationsEquipe() == null)
 			metier.ajouterAssignEquipe(ae, ae.getEquipe().getIdEquipe(), ae.getUtilisateur().getIdUtilisateur());
 		else {
 			metier.modifierAssignEquipe(ae);
 		}
 		model.addAttribute("assignEquipeForm", new AssignationsEquipe());
 		model.addAttribute("listAssigns", metier.listAssignEquipe());
-		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
+		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 		model.addAttribute("listEquipes", metier.listEquipes());
 		return "gestionRespoAssign";
-		
+
 	}
-	
-	@RequestMapping(value="/editAssign")
-	public String editAssign(Long idAssignationsEquipe, Model model){
+
+	@RequestMapping(value = "/editAssign")
+	public String editAssign(Long idAssignationsEquipe, Model model) {
 		AssignationsEquipe ae = metier.getAssignEquipe(idAssignationsEquipe);
 		model.addAttribute("assignEquipeForm", ae);
 		model.addAttribute("listAssigns", metier.listAssignEquipe());
-		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
-		model.addAttribute("listEquipes", metier.listEquipes());		
-		return "gestionRespoAssign";		
+		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
+		model.addAttribute("listEquipes", metier.listEquipes());
+		return "gestionRespoAssign";
 	}
-	
-	@RequestMapping(value="/suppAssign")
-	public String suppAssign(Long idAssignationsEquipe, Model model){
+
+	@RequestMapping(value = "/suppAssign")
+	public String suppAssign(Long idAssignationsEquipe, Model model) {
 		metier.supprimerAssignEquipe(idAssignationsEquipe);
 		model.addAttribute("assignEquipeForm", new AssignationsEquipe());
-		model.addAttribute("listAssigns", metier.listAssignEquipe());		
-		model.addAttribute("listUtilisateurs", metier.listUtilisateur());		
+		model.addAttribute("listAssigns", metier.listAssignEquipe());
+		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 		model.addAttribute("listEquipes", metier.listEquipes());
-		return "gestionRespoAssign";		
+		return "gestionRespoAssign";
 	}
-	
-	/* Gestions de la grille d'App partie familleCompetence*/
-	
-	@RequestMapping(value="/indexFamComp")
-	public String gestionRespoFamComp(Model model){
-		/*formulaire famillleCompentence */
+
+	/* Gestions de la grille d'App partie familleCompetence */
+
+	@RequestMapping(value = "/indexFamComp")
+	public String gestionRespoFamComp(Model model) {
+		/* formulaire famillleCompentence */
 		model.addAttribute("familleForm", new FamilleCompetence());
 		model.addAttribute("listFamComps", metier.listFamComp());
 		model.addAttribute("sessionapps", metier.listSassionApps());
-		
-		/*formulaire session App*/
-		/*model.addAttribute("sessionAppForm", new SessionApp());
-		model.addAttribute("sessionapps", metier.listSassionApp());
-		model.addAttribute("listUtilisateurs", metier.listUtilisateur());*/
-		
-		/*formulaire competence */
-		/*model.addAttribute("competenceForm", new Competence());
-		model.addAttribute("listCompetences", metier.listComptence());
-		model.addAttribute("listFamComps", metier.listFamComp());*/
-		
+
+		/* formulaire session App */
+		/*
+		 * model.addAttribute("sessionAppForm", new SessionApp());
+		 * model.addAttribute("sessionapps", metier.listSassionApp());
+		 * model.addAttribute("listUtilisateurs", metier.listUtilisateur());
+		 */
+
+		/* formulaire competence */
+		/*
+		 * model.addAttribute("competenceForm", new Competence());
+		 * model.addAttribute("listCompetences", metier.listComptence());
+		 * model.addAttribute("listFamComps", metier.listFamComp());
+		 */
+
 		return "gestionRespoFamComp";
 	}
-	
-	@RequestMapping(value="/saveFamille", method=RequestMethod.POST) 
-	public String saveFamComp(@Valid FamilleCompetence fc, /*BindingResult bindingResult,*/ Model model) /*throws IOException*/{
-		/*if(bindingResult.hasErrors()){
-			model.addAttribute("sessionapps",metier.listSassionApp());
-			model.addAttribute("famillecompetences",metier.listFamComp());
-			return "famillecompetences";
-		}*/
-		if(fc.getIdFamille()==null){
+
+	@RequestMapping(value = "/saveFamille", method = RequestMethod.POST)
+	public String saveFamComp(@Valid FamilleCompetence fc,
+			/* BindingResult bindingResult, */ Model model) /*
+															 * throws
+															 * IOException
+															 */ {
+		/*
+		 * if(bindingResult.hasErrors()){
+		 * model.addAttribute("sessionapps",metier.listSassionApp());
+		 * model.addAttribute("famillecompetences",metier.listFamComp()); return
+		 * "famillecompetences"; }
+		 */
+		if (fc.getIdFamille() == null) {
 			metier.ajouterFamComp(fc, fc.getSessionApp().getIdApp());
-		}
-		else metier.modifierFamComp(fc);
+		} else
+			metier.modifierFamComp(fc);
 		model.addAttribute("familleForm", new FamilleCompetence());
 		model.addAttribute("listFamComps", metier.listFamComp());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		return "gestionRespoFamComp";
-		
+
 	}
-	
-	@RequestMapping(value="/editFamille")
-	public String editFamille(Long idFamille, Model model){
+
+	@RequestMapping(value = "/editFamille")
+	public String editFamille(Long idFamille, Model model) {
 		FamilleCompetence fc = metier.getFamComp(idFamille);
 		model.addAttribute("familleForm", fc);
 		model.addAttribute("listFamComps", metier.listFamComp());
 		model.addAttribute("sessionapps", metier.listSassionApps());
-		return "gestionRespoFamComp";		
+		return "gestionRespoFamComp";
 	}
-	
-	@RequestMapping(value="/suppFamille")
-	public String suppFamille(Long idFamille, Model model){
+
+	@RequestMapping(value = "/suppFamille")
+	public String suppFamille(Long idFamille, Model model) {
 		metier.supprimerFamComp(idFamille);
 		model.addAttribute("familleForm", new FamilleCompetence());
 		model.addAttribute("listFamComps", metier.listFamComp());
 		model.addAttribute("sessionapps", metier.listSassionApp());
-		return "gestionRespoFamComp";	
+		return "gestionRespoFamComp";
 	}
-	
-	
-	/* Gestions de la grille d'App partie Competence*/
-	
-	@RequestMapping(value="/indexComp")
-	public String gestionRespoCompetence(Model model){
+
+	/* Gestions de la grille d'App partie Competence */
+
+	@RequestMapping(value = "/indexComp")
+	public String gestionRespoCompetence(Model model) {
 		model.addAttribute("competenceForm", new Competence());
 		model.addAttribute("listCompetences", metier.listComptence());
 		model.addAttribute("listFamComps", metier.listFamComp());
 		return "gestionRespoCompetence";
 	}
-	
-	@RequestMapping(value="/saveCompetence", method=RequestMethod.POST) 
-	public String saveCompetence(@Valid Competence c, /*BindingResult bindingResult,*/ Model model) /*throws IOException*/{
-		/*if(bindingResult.hasErrors()){
-			model.addAttribute("sessionapps",metier.listSassionApp());
-			model.addAttribute("famillecompetences",metier.listFamComp());
-			return "famillecompetences";
-		}*/
-		if(c.getIdCompetence() == null){
+
+	@RequestMapping(value = "/saveCompetence", method = RequestMethod.POST)
+	public String saveCompetence(@Valid Competence c,
+			/* BindingResult bindingResult, */ Model model) /*
+															 * throws
+															 * IOException
+															 */ {
+		/*
+		 * if(bindingResult.hasErrors()){
+		 * model.addAttribute("sessionapps",metier.listSassionApp());
+		 * model.addAttribute("famillecompetences",metier.listFamComp()); return
+		 * "famillecompetences"; }
+		 */
+		if (c.getIdCompetence() == null) {
 			metier.ajouterCompetence(c, c.getFamilleCompetence().getIdFamille());
-		}
-		else metier.modifierCompetence(c);
+		} else
+			metier.modifierCompetence(c);
 		model.addAttribute("competenceForm", new Competence());
 		model.addAttribute("listCompetences", metier.listComptence());
 		model.addAttribute("listFamComps", metier.listFamComp());
 		return "gestionRespoCompetence";
-		
+
 	}
-	
-	@RequestMapping(value="/editCompetence")
-	public String editCompetence(Long idCompetence, Model model){
+
+	@RequestMapping(value = "/editCompetence")
+	public String editCompetence(Long idCompetence, Model model) {
 		Competence c = metier.getCompetence(idCompetence);
 		model.addAttribute("competenceForm", c);
 		model.addAttribute("listCompetences", metier.listComptence());
 		model.addAttribute("listFamComps", metier.listFamComp());
-		return "gestionRespoCompetence";		
+		return "gestionRespoCompetence";
 	}
-	
-	@RequestMapping(value="/suppCompetence")
-	public String suppCompetence(Long idCompetence, Model model){
+
+	@RequestMapping(value = "/suppCompetence")
+	public String suppCompetence(Long idCompetence, Model model) {
 		metier.supprimerEquipe(idCompetence);
 		model.addAttribute("competenceForm", new Competence());
 		model.addAttribute("listCompetences", metier.listComptence());
 		model.addAttribute("listFamComps", metier.listFamComp());
-		return "gestionRespoCompetence";		
+		return "gestionRespoCompetence";
 	}
-	
-/* Gestions de la grille d'App partie Session App*/
-	
-	@RequestMapping(value="/indexSession")
-	public String gestionRespoSessionApp(Model model){
+
+	/* Gestions de la grille d'App partie Session App */
+
+	@RequestMapping(value = "/indexSession")
+	public String gestionRespoSessionApp(Model model) {
 		model.addAttribute("sessionAppForm", new SessionApp());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 		return "gestionRespoSession";
 	}
-	
-	@RequestMapping(value="/saveSessionApp", method=RequestMethod.POST) 
-	public String saveSessionApp(@Valid SessionApp sa, /*BindingResult bindingResult,*/ Model model) /*throws IOException*/{
-		/*if(bindingResult.hasErrors()){
-			model.addAttribute("sessionapps",metier.listSassionApp());
-			model.addAttribute("famillecompetences",metier.listFamComp());
-			return "famillecompetences";
-		}*/
-		
-		if(sa.getIdApp() == null){
-			metier.ajouterSessionApp(sa, sa.getUtilisateur().getIdUtilisateur());		
-		}
-		else metier.modifierSessionApp(sa);
+
+	@RequestMapping(value = "/saveSessionApp", method = RequestMethod.POST)
+	public String saveSessionApp(@Valid SessionApp sa,
+			/* BindingResult bindingResult, */ Model model) /*
+															 * throws
+															 * IOException
+															 */ {
+		/*
+		 * if(bindingResult.hasErrors()){
+		 * model.addAttribute("sessionapps",metier.listSassionApp());
+		 * model.addAttribute("famillecompetences",metier.listFamComp()); return
+		 * "famillecompetences"; }
+		 */
+
+		if (sa.getIdApp() == null) {
+			metier.ajouterSessionApp(sa, sa.getUtilisateur().getIdUtilisateur());
+		} else
+			metier.modifierSessionApp(sa);
 		model.addAttribute("sessionAppForm", new SessionApp());
-		model.addAttribute("sessionapps", metier.listSassionApp());	
+		model.addAttribute("sessionapps", metier.listSassionApp());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
 		return "gestionRespoSession";
-		
+
 	}
-	
-	@RequestMapping(value="/editSessionApp")
-	public String editSesionApp(Long idApp, Model model){
+
+	@RequestMapping(value = "/editSessionApp")
+	public String editSesionApp(Long idApp, Model model) {
 		SessionApp sa = metier.getSessionApp(idApp);
 		model.addAttribute("sessionAppForm", sa);
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
-		return "gestionRespoSession";		
+		return "gestionRespoSession";
 	}
-	
-	@RequestMapping(value="/suppSessionApp")
-	public String suppSessionApp(Long idApp, Model model){
+
+	@RequestMapping(value = "/suppSessionApp")
+	public String suppSessionApp(Long idApp, Model model) {
 		metier.supprimerSessionApp(idApp);
 		model.addAttribute("sessionAppForm", new SessionApp());
 		model.addAttribute("sessionapps", metier.listSassionApp());
 		model.addAttribute("listUtilisateurs", metier.listUtilisateur());
-		return "gestionRespoSession";		
+		return "gestionRespoSession";
 	}
-	
-	
-	
+
 }

@@ -14,9 +14,9 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Utilisateur implements Serializable{
+public class Utilisateur implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUtilisateur;
 	private String email;
 	@NotEmpty
@@ -24,43 +24,45 @@ public class Utilisateur implements Serializable{
 	private String prenomUtilisateur;
 	private String password;
 	private boolean actived;
-	@OneToMany(mappedBy="utilisateur", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	private Collection<Role> roles;
-	@OneToMany(mappedBy="utilisateur", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	private Collection<SessionApp> sessionApps;
-	@OneToMany(mappedBy="utilisateur", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	private Collection<AssignationsEquipe> assignEquipes;
-	@OneToMany(mappedBy="utilisateur", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	private Collection<Note> notes;
 
-	
 	public Utilisateur() {
-		
+
 		// TODO Auto-generated constructor stub
 	}
 
-	public Utilisateur(String email, String nomUtilisateur,String prenomUtilisateur, String password, boolean actived) {
+	public Utilisateur(String email, String nomUtilisateur, String prenomUtilisateur, String password,
+			boolean actived) {
 
 		this.email = email;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
-		
+
 		this.password = password;
 		this.actived = actived;
-		
+
 	}
-	public Utilisateur(String email, String nomUtilisateur,String prenomUtilisateur, String password) {
+
+	public Utilisateur(String email, String nomUtilisateur, String prenomUtilisateur, String password) {
 
 		this.email = email;
 		this.nomUtilisateur = nomUtilisateur;
 		this.prenomUtilisateur = prenomUtilisateur;
-		
+
 		this.password = password;
-		
+
 	}
+
 	public Utilisateur(String nomUtilisateur) {
 		this.nomUtilisateur = nomUtilisateur;
-		
+
 	}
 
 	public Long getIdUtilisateur() {
@@ -142,6 +144,5 @@ public class Utilisateur implements Serializable{
 	public void setPrenomUtilisateur(String prenomUtilisateur) {
 		this.prenomUtilisateur = prenomUtilisateur;
 	}
-	
-		
+
 }

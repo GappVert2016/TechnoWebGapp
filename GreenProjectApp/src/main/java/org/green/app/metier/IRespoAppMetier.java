@@ -11,38 +11,53 @@ import org.green.app.entities.SessionApp;
 import org.green.app.entities.Utilisateur;
 
 public interface IRespoAppMetier extends ITuteurMetier {
-	
+
 	public Long ajouterCompetence(Competence c, Long idFamComp);
+
 	public void supprimerComptence(Long idComp);
+
 	public void modifierCompetence(Competence c);
-	
+
 	public Long ajouterUtilisateur(Utilisateur u);
+
 	public void supprimerUtilisateur(Long idUtilisa);
+
 	public void modifierUtilisateur(Utilisateur u);
 
 	// public List<Utilisateur> listUtilisateurParGroupe(Long identifiant);
-	
+
 	public void attribuerRole(Role r, Long idUtilisateur);
-	
+
 	public Long ajouterEquipe(Equipe e, Long idApp);
-	//public List<Equipe> listEquipe();
-	//public Equipe getEquipe(Long idEquipe);
+
+	// public List<Equipe> listEquipe();
+	// public Equipe getEquipe(Long idEquipe);
 	public void supprimerEquipe(Long idEquip);
+
 	public void modifierEquipe(Equipe e);
-	
+
 	public Long ajouterFamComp(FamilleCompetence fc, Long idApp);
+
 	public void supprimerFamComp(Long idFamC);
+
 	public void modifierFamComp(FamilleCompetence fc);
-	
+
 	public void ajouterAssignEquipe(AssignationsEquipe ae, Long idEquipe, Long idUtilisateur);
+
 	public void supprimerAssignEquipe(Long idAssignEqu);
+
 	public void modifierAssignEquipe(AssignationsEquipe ae);
-	
+
 	public Long ajouterSessionApp(SessionApp sa, Long idUtilisateur);
+
 	public List<SessionApp> listSassionApp();
+
 	public SessionApp getSessionApp(Long idApp);
+
 	public void supprimerSessionApp(Long idSessionA);
+
 	public void modifierSessionApp(SessionApp sa);
+
 	public List<SessionApp> listSassionApps();
 
 }

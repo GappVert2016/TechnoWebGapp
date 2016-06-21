@@ -13,19 +13,39 @@
 </head>
 
 <body>
-<div class="container">
+	<%@ include file="headerStudent.jsp"%>
 
-<div class="align-select">
-	<select id="mySelect">
+	<div class="container text-center">
+		<div class="col-xs-20 col-md-12">
+			<ul class="nav nav-justified">
+				<li><h4 class="lead">
+						<a href="selectToNote">GESTION DE NOTES</a>
+					</h4></li>
+				<li><h1>
+						<strong class="glyphicon glyphicon-education"></strong>
+					</h1></li>
+				<li><h4 class="lead">
+						<a href="listeEquipe">EQUIPES</a>
+					</h4></li>
+			</ul>
+		</div>
+	</div>
+	<br>
 
-		<option value=''>------ Choix du groupe -----</option>
+	<h2 class="centrer">CHOISIR L'EQUIPE A NOTER</h2>
 
-		<c:forEach items="${listEquipes}" var="equipe">
-			<option value=${equipe }>${equipe }</option>
-		</c:forEach>
+	<div class="align-select centrer" style="margin: 50px auto;">
+		<select id="mySelect">
 
-	</select>
-</div>
+
+			<option value=''>------ Choix du groupe -----</option>
+
+			<c:forEach items="${listEquipes}" var="equipe">
+				<option value=${equipe }>${equipe }</option>
+			</c:forEach>
+
+		</select>
+	</div>
 
 	<c:forEach items="${listElevesParGroupe}" var="eleveL">
 		<div id="${eleveL[0].equipe.nomEquipe }" class="div-equipe">
@@ -44,204 +64,48 @@
 					<tr>
 						<td>${eleve.utilisateur.nomUtilisateur }</td>
 						<td>${eleve.utilisateur.prenomUtilisateur }</td>
-						<td>
-							<a href="noter?idUtilisateur=${eleve.utilisateur.idUtilisateur }">Noter</a>
-								|
-							<a href="grilleNotes?idUtilisateur=${eleve.utilisateur.idUtilisateur }">Consulter
-								Notes</a>
-						</td>
+						<td><a
+							href="noter?idUtilisateur=${eleve.utilisateur.idUtilisateur }&idEquipe=${eleveL[0].equipe.idEquipe  }">Noter</a>
+							| <a
+							href="grilleNotes?idUtilisateur=${eleve.utilisateur.idUtilisateur }">Consulter
+								Notes</a></td>
 					</tr>
 
 
 
 				</c:forEach>
-				<tfoot>
-					<tr>
-						<th COLSPAN=5 style="text-align: center;"><a
-							href="noter?idEquipe=${eleveL[0].equipe.idEquipe }">Noter le
-								Groupe</a><a
-							href="grilleNotes?idUEquipe=${eleveL[0].equipe.idEquipe  }">Consulter
-								Notes du Groupe</a></th>
-					</tr>
-				</tfoot>
+
 			</table>
 		</div>
 
 	</c:forEach>
 
 
-</div>
-	<!-- 
-	<div id="GoupeA2" class="competences table-responsive">
 
-		<table class="table">
-			<tr>
-				<th>Nom</th>
-				<th>Prenom</th>
-				<th>NomEquipe</th>
-				<th>IDEquipe</th>
-				<th>IDEquipeAss</th>
-			</tr>
-			<c:forEach items="${listElevesParGroupe2}" var="eleve">
-				<tr>
-					<td>${eleve.utilisateur.nomUtilisateur }</td>
-					<td>${eleve.utilisateur.prenomUtilisateur }</td>
-					<td>${eleve.equipe.nomEquipe }</td>
-					<td>${eleve.equipe.idEquipe }</td>
-					<td><a href="">Noter</a></td>
-				</tr>
-
-			</c:forEach>
-		</table>
-
-	</div>
-
-	<div id="GoupeA3" class="competences table-responsive">
-
-
-		<table class="table">
-			<tr>
-				<th>Nom</th>
-				<th>Prenom</th>
-				<th>NomEquipe</th>
-				<th>IDEquipe</th>
-				<th>IDEquipeAss</th>
-			</tr>
-			<c:forEach items="${listElevesParGroupe3}" var="eleve">
-				<tr>
-					<td>${eleve.utilisateur.nomUtilisateur }</td>
-					<td>${eleve.utilisateur.prenomUtilisateur }</td>
-					<td>${eleve.equipe.nomEquipe }</td>
-					<td>${eleve.equipe.idEquipe }</td>
-					<td><a href="">Noter</a></td>
-				</tr>
-
-			</c:forEach>
-		</table>
-
-	</div>
-
-	<div id="GoupeA4" class="competences table-responsive">
-
-		<table class="table">
-			<tr>
-				<th>Nom</th>
-				<th>Prenom</th>
-				<th>NomEquipe</th>
-				<th>IDEquipe</th>
-				<th>IDEquipeAss</th>
-			</tr>
-			<c:forEach items="${listElevesParGroupe4}" var="eleve">
-				<tr>
-					<td>${eleve.utilisateur.nomUtilisateur }</td>
-					<td>${eleve.utilisateur.prenomUtilisateur }</td>
-					<td>${eleve.equipe.nomEquipe }</td>
-					<td>${eleve.equipe.idEquipe }</td>
-					<td><a href="">Noter</a></td>
-				</tr>
-
-			</c:forEach>
-		</table>
-
-	</div>
-
-	<div id="GoupeA5" class="competences table-responsive">
-
-		<table class="table">
-			<tr>
-				<th>Nom</th>
-				<th>Prenom</th>
-				<th>NomEquipe</th>
-				<th>IDEquipe</th>
-				<th>IDEquipeAss</th>
-			</tr>
-			<c:forEach items="${listElevesParGroupe5}" var="eleve">
-				<tr>
-					<td>${eleve.utilisateur.nomUtilisateur }</td>
-					<td>${eleve.utilisateur.prenomUtilisateur }</td>
-					<td>${eleve.equipe.nomEquipe }</td>
-					<td>${eleve.equipe.idEquipe }</td>
-					<td><a href="">Noter</a></td>
-
-				</tr>
-
-			</c:forEach>
-		</table>
-
-	</div>
-
-	<div id="GoupeA6" class="competences table-responsive">
-
-		<table class="table">
-			<tr>
-				<th>Nom</th>
-				<th>Prenom</th>
-				<th>NomEquipe</th>
-				<th>IDEquipe</th>
-				<th>IDEquipeAss</th>
-			</tr>
-			<c:forEach items="${listElevesParGroupe6}" var="eleve">
-				<tr>
-					<td>${eleve.utilisateur.nomUtilisateur }</td>
-					<td>${eleve.utilisateur.prenomUtilisateur }</td>
-					<td>${eleve.equipe.nomEquipe }</td>
-					<td>${eleve.equipe.idEquipe }</td>
-					<td><a href="">Noter</a></td>
-
-				</tr>
-
-			</c:forEach>
-		</table>
-
-	</div>
-
-
-	<div id="GoupeA7" class="competences table-responsive">
-
-		<table class="table">
-			<tr>
-				<th>Nom</th>
-				<th>Prenom</th>
-				<th>NomEquipe</th>
-				<th>IDEquipe</th>
-				<th>IDEquipeAss</th>
-			</tr>
-			<c:forEach items="${listElevesParGroupe7}" var="eleve">
-				<tr>
-					<td>${eleve.utilisateur.nomUtilisateur }</td>
-					<td>${eleve.utilisateur.prenomUtilisateur }</td>
-					<td>${eleve.equipe.nomEquipe }</td>
-					<td>${eleve.equipe.idEquipe }</td>
-					<td><a href="">Noter</a></td>
-
-				</tr>
-
-			</c:forEach>
-		</table>
-
-
-	</div>
--->
-
+	<%@ include file="footer.jsp"%>
 </body>
 </html>
 
 <style>
-
-.container{
-margin:10px 10px;
-
+.container {
+	margin: 10px auto;
 }
+
 .clearfix {
-clear: both;
+	clear: both;
 }
-.align-select{
-margin:auto;
-margin-bottom:50px;
-text-align:center;
+
+.align-select {
+	margin: auto;
+	margin-bottom: 50px;
 }
-.div-equipe{
-display: none;
+
+.centrer {
+	text-align: center;
+}
+
+.div-equipe {
+	display: none;
 }
 
 @media only screen and (max-width: 950px) {
@@ -253,11 +117,8 @@ display: none;
 		margin-right: 5%;
 		margin-left: 5%;
 		margin-top: 50px;
-		
 	}
-	
 }
-	
 </style>
 
 

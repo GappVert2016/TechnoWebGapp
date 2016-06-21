@@ -53,7 +53,7 @@
 		<s:form-login login-page="/login" default-target-url="/tutorApp/index"
 		authentication-failure-url="/login"></s:form-login>
 		
-		<s:form-login login-page="/login" default-target-url="/studentApp/index"
+		<s:form-login login-page="/login" default-target-url="/studentApp/index/{idUser}"
 		authentication-failure-url="/login"></s:form-login>
 		<s:logout logout-success-url="/logout"></s:logout>
 	</s:http>
@@ -62,6 +62,7 @@
 			<s:password-encoder hash="md5"></s:password-encoder>
 			<s:jdbc-user-service data-source-ref="datasource"
 			users-by-username-query="select  nomUtilisateur, password, actived from utilisateur where nomUtilisateur=?"
+			
 			authorities-by-username-query="select u.nomUtilisateur, r.rolename from utilisateur u, role r where u.idUtilisateur = r.idUtilisateur and u.nomUtilisateur=? " ></s:jdbc-user-service>
 		</s:authentication-provider>
 	</s:authentication-manager>

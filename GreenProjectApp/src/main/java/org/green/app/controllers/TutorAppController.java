@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.green.app.entities.Competence;
 import org.green.app.entities.Equipe;
@@ -17,73 +18,116 @@ import org.green.app.metier.ITuteurMetier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
-@RequestMapping(value="/tutorApp")
+@RequestMapping(value = "/tutorApp")
 public class TutorAppController {
-                @Autowired
-                private ITuteurMetier metier;
+	@Autowired
+	private ITuteurMetier metier;
 
-                @RequestMapping(value="/selectToNote")
-                public String index(Model model){
+	@RequestMapping(value = "/index")
+	public String index(Model model) {
 
+		return "gestionTutor";
+	}
 
-                        System.out.println("sdffsd");
+	@RequestMapping(value = "/listeEquipe")
+	public String listeEquipe(Model model) {
 
-                        model.addAttribute("listAssigneEquipes", metier.listAssignEquipe());
-                        model.addAttribute("listEquipes", metier.listEquipe());
+		ArrayList<List<Utilisateur>> list = new ArrayList<List<Utilisateur>>();
+		int nb = metier.nombreEquipe();
+		for (int i = 1; i <= nb; i++) {
+			list.add(metier.listUtilisateurParGroupe((long) i));
+		}
 
-                        ArrayList<List<Utilisateur>> list = new ArrayList<List<Utilisateur>>();
-                        int nb = metier.nombreEquipe();
-                        for(int i=1; i<=nb;i++){
-                                list.add(metier.listUtilisateurParGroupe((long)i));
-                        }
+		model.addAttribute("listElevesParGroupe", list);
 
-                        model.addAttribute("listElevesParGroupe", list);
+		return "listeEquipe";
+	}
 
-                        return "SelectToNote";
+	@RequestMapping(value = "/listeFamille")
+	public String listeFamilles(Model model) {
 
-                }
+		ArrayList<List<Competence>> list = new ArrayList<List<Competence>>();
+		int nb = metier.nombreFamilleComp();
+		System.out.println(nb);
+		for (int i = 1; i <= nb; i++) {
+			list.add(metier.listCompetenceParFamComp((long) i));
+		}
+		model.addAttribute("listCompetenceParFam", list);
 
-                @RequestMapping(value = "/grilleNotes", method = RequestMethod.GET)
-                public String grilleNote(Model model, @ModelAttribute("idUtilisateur") Long idUtilisateur
-                                ,@ModelAttribute("idUtilisateur") Long idEquipe){
+		return "listeFamille";
+	}
 
+	@RequestMapping(value = "/selectToNote")
+	public String indexSelect(Model model) {
 
-                        Utilisateur u = metier.getUtilisateur(idUtilisateur);
-                        model.addAttribute("utilisateur",u);
-                        System.out.println(u.getNomUtilisateur());
-                //      model.addAttribute("listCompetence", metier.listCompetenceParFamCompParEtudiant((long) 1, (long) 1));
-                        model.addAttribute("listCompetence", metier.listNotesParUtilisateur((long) 1));
-                        ArrayList<List<Note>> list = new ArrayList<List<Note>>();
-                        int nb = metier.nombreFamilleComp();
-                        System.out.println(nb);
-                        for(int i=1; i<=nb;i++){
-                                list.add(metier.listNotesParUtilisateurParFamComp(idUtilisateur, (long)i));
-                        }
-                        model.addAttribute("listCompetenceParFam", list);
-                        /*
-                        model.addAttribute("listCompetenceParFam", metier.listNotesParUtilisateurParFamComp((long) 1, (long) 1));
-                        model.addAttribute("listCompetenceParFam1", metier.listNotesParUtilisateurParFamComp((long) 1, (long) 2));
-                        model.addAttribute("listCompetenceParFam2", metier.listNotesParUtilisateurParFamComp((long) 1, (long) 3));
-                        model.addAttribute("listCompetenceParFam3", metier.listNotesParUtilisateurParFamComp((long) 1, (long) 4));
-                        model.addAttribute("listCompetenceParFam4", metier.listNotesParUtilisateurParFamComp((long) 1, (long) 5));
-                         */
+		model.addAttribute("listAssigneEquipes", metier.listAssignEquipe());
+		model.addAttribute("listEquipes", metier.listEquipe());
 
+		ArrayList<List<Utilisateur>> list = new ArrayList<List<Utilisateur>>();
+		int nb = metier.nombreEquipe();
+		for (int i = 1; i <= nb; i++) {
+			list.add(metier.listUtilisateurParGroupe((long) i));
+		}
+		System.out.println(nb);
+		model.addAttribute("listElevesParGroupe", list);
 
+		return "SelectToNote";
 
-                        return "GrilleNotes";
-                }
+	}
 
+	@RequestMapping(value = "/grilleNotes", method = RequestMethod.GET)
+	public String grilleNote(Model model, @ModelAttribute("idUtilisateur") Long idUtilisateur,
+			@ModelAttribute("idUtilisateur") Long idEquipe) {
 
-                @RequestMapping(value="/index")
-                public String accueilTuteur(Model model){
-                        return "AccueilTuteur";
-                }
+		Utilisateur u = metier.getUtilisateur(idUtilisateur);
+		model.addAttribute("utilisateur", u);
+		System.out.println(u.getNomUtilisateur());
+		// model.addAttribute("listCompetence",
+		// metier.listNotesParUtilisateur((long) 1));
+
+		ArrayList<List<Note>> list = new ArrayList<List<Note>>();
+		int nb = metier.nombreFamilleComp();
+		System.out.println(nb);
+		for (int i = 1; i <= nb; i++) {
+			list.add(metier.listNotesParUtilisateurParFamComp(idUtilisateur, (long) i));
+		}
+		model.addAttribute("listCompetenceParFam", list);
+
+		return "GrilleNotes";
+	}
+
+	@RequestMapping(value = "/noter", method = RequestMethod.GET)
+	public String ajouterNote(Model model, @ModelAttribute("idUtilisateur") Long idUtilisateur,
+			@ModelAttribute("idEquipe") Long idEquipe) {
+
+		System.out.println(idUtilisateur);
+		model.addAttribute("id", idUtilisateur);
+		System.out.println(idEquipe);
+		model.addAttribute("idEquipe", idEquipe);
+		model.addAttribute("noteForm", new Note());
+		model.addAttribute("listEquipe", metier.listEquipes());
+		model.addAttribute("listUtilisateur", metier.listUtilisateur());
+		model.addAttribute("listComps", metier.listComptence());
+
+		return "gestionTutorNote";
+	}
+
+	@RequestMapping(value = "/saveNote", method = RequestMethod.POST)
+	public String saveUtilisateur(@Valid Note n, Model model) {
+
+		metier.ajouterNote(n, n.getComptence().getIdCompetence(), n.getEquipe().getIdEquipe(),
+				n.getUtilisateur().getIdUtilisateur());
+
+		model.addAttribute("noteForm", new Note());
+		return "gestionTutorNote";
+
+	}
 
 }

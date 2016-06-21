@@ -17,20 +17,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class SessionApp implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idApp;
 	@NotEmpty
 	private String nomSessionApp;
 	private String descriptionApp;
 	@ManyToOne
-	@JoinColumn(name="idUtilisateur")
+	@JoinColumn(name = "idUtilisateur")
 	private Utilisateur utilisateur;
-	@OneToMany(mappedBy="sessionApp", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "sessionApp", fetch = FetchType.LAZY)
 	private Collection<Equipe> equipes;
-	@OneToMany(mappedBy="sessionApp", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "sessionApp", fetch = FetchType.LAZY)
 	private Collection<FamilleCompetence> famicomps;
-	
-	
 
 	public SessionApp() {
 		super();
@@ -91,7 +89,5 @@ public class SessionApp implements Serializable {
 	public void setFamicomps(Collection<FamilleCompetence> famicomps) {
 		this.famicomps = famicomps;
 	}
-	
-		
 
 }

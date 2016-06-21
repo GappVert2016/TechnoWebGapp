@@ -9,26 +9,39 @@ import org.green.app.entities.Note;
 import org.green.app.entities.Utilisateur;
 
 public interface IEtudiantMetier {
-	
+
 	public List<Competence> listComptence();
+
 	public List<Competence> listCompetenceParMotCle(String mc);
-	public List<Competence> listCompetenceParFamComp(Long idFamComp);	
+
+	public List<Competence> listCompetenceParFamComp(Long idFamComp);
+
 	public Competence getCompetence(Long idCompetence);
-	
+
 	public Utilisateur getUtilisateur(Long idUtilisateur);
-	
-	
+
 	public List<FamilleCompetence> listFamComp();
+
 	public FamilleCompetence getFamComp(Long idFamComp);
-	
+
 	public List<Note> listNote();
-	
-	/*LISTE DES NOTES PAR UTILISATEUR DONT ON CONNAIT L'ID**/	
+
+	/* LISTE DES NOTES PAR UTILISATEUR DONT ON CONNAIT L'ID **/
 	public List<Note> listNotesParUtilisateur(Long id);
-	
+
 	public Note getNote(Long idNote);
-	
+
 	public List<AssignationsEquipe> listAssignEquipe();
+
 	public AssignationsEquipe getAssignEquipe(Long idAssignationsEquipe);
+
+	/**
+	 * LISTE DES NOTES PAR UTILISATEUR DONT ON CONNAIT LE NOM ET PAR FAMILLE
+	 * COMPETENCE
+	 **/
+	public List<Note> listNotesParUtilisateurs(String nom, Long idFam);
+
+	/*** NOMBRE FAMILLE COMPETENCE **/
+	public int nombreFamilleComp();
 
 }
